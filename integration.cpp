@@ -7,7 +7,6 @@
 #include <atomic>
 #include "integration.h"
 
-
 double function(const double &x1, const double &x2) {
     double sum_result = 0.002;
     for (int i = -2; i <= 2; ++i) {
@@ -18,8 +17,10 @@ double function(const double &x1, const double &x2) {
     return 1 / sum_result;
 }
 
+
+template<class T>
 void double_integral_compute(double a, const double &b, double c, const double &d, const size_t &steps,
-                             std::atomic<double> &result) {
+                             T &result) {
     double dx = (b - a) / steps;
     double dy = (d - c) / steps;
     double cur_result(0);
@@ -34,6 +35,11 @@ void double_integral_compute(double a, const double &b, double c, const double &
 }
 
 double integrate(double a, const double &b, double c, const double &d, const size_t &steps, const size_t &thread_num) {
+    if (thread_num == 1) {
+        double result = 0;
+        double_integral_compute<double>(a, b, c, d, steps, result);
+        return result;
+    }
     std::atomic<double> result(0);
     std::vector<std::thread> threads_list;
     threads_list.reserve(thread_num);
@@ -41,7 +47,7 @@ double integrate(double a, const double &b, double c, const double &d, const siz
     size_t steps_part = steps / thread_num;
     for (size_t i = 0; i < thread_num; ++i) {
         threads_list.emplace_back(
-                double_integral_compute, a + x_range_step * i,
+                double_integral_compute<std::atomic<double> >, a + x_range_step * i,
                 a + x_range_step * (i + 1), c, d, steps_part, std::ref(result));
     }
     for (auto &v: threads_list) v.join();

@@ -27,7 +27,7 @@ configuration_t read_conf(std::istream &cf) {
         getline(cf, temp);
         cf >> res.initial_steps;
         getline(cf, temp);
-        cf >> res.max_steps;
+        cf >> res.max_iters;
         getline(cf, temp);
         cf >> res.thread_num;
     } catch (std::ios_base::failure &fail) // Life without RAII is hard...
@@ -45,8 +45,8 @@ configuration_t read_conf(std::istream &cf) {
     if (res.initial_steps < 10) {
         throw std::runtime_error("Too few initial_steps");
     }
-    if (res.max_steps < 10) {
-        throw std::runtime_error("Too small max_steps");
+    if (res.max_iters < 5) {
+        throw std::runtime_error("Too few iterations");
     }
     if (res.thread_num <= 0) {
         throw std::runtime_error("Number of threads to use is <= 0: Please, think!");

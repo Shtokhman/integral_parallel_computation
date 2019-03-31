@@ -1,9 +1,9 @@
 0.0001  # relative error
-0.00005 # absolute error
+0.0005   # absolute error
 -50     # x1
 50      # x2
--50     # x1
-50      # x2
+-50     # y1
+50      # y2
 100     # initial steps
-100000  # max steps
-4       # thread_num
+10       # max iteration to perform
+5   #thread_num

@@ -14,7 +14,7 @@ struct configuration_t {
     double x1, x2;
     double y1, y2;
     size_t initial_steps;
-    size_t max_steps;
+    size_t max_iters;
     size_t thread_num;
 };
 

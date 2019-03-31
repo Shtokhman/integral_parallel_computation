@@ -11,7 +11,6 @@ find_package(Threads REQUIRED)
 # for debug information
 # add_compile_options("-DPRINT_INTERMEDIATE_STEPS")
 
-
 add_executable(main main.cpp measure_time.h read_conf.cpp read_conf.h integration.cpp integration.h)
 
 target_link_libraries(main Threads::Threads)

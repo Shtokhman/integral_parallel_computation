@@ -1,4 +1,3 @@
-#include <iostream>
 #include "read_conf.h"
 #include "measure_time.h"
 #include "integration.h"
@@ -29,16 +28,13 @@ int main(int argc, char **argv) {
     auto before = get_current_time_fenced();
     size_t steps = config.initial_steps;
     double cur_res = integrate(config.x1, config.x2, config.y1, config.y2, steps, config.thread_num);
-    std::cout << "The cur_res is: " << cur_res << std::endl;
-    exit(66);
     double prev_res = cur_res;
     bool to_continue = true;
     double abs_err = -1; // Just guard value
     double rel_err = -1; // Just guard value
-// #define PRINT_INTERMEDIATE_STEPS
     while (to_continue) {
 #ifdef PRINT_INTERMEDIATE_STEPS
-        cout << cur_res << " : " << steps << " steps" << endl;
+        std::cout << cur_res << " : " << steps << " steps" << std::endl;
 #endif
         prev_res = cur_res;
         steps *= 2;
@@ -46,7 +42,7 @@ int main(int argc, char **argv) {
         abs_err = std::fabs(cur_res - prev_res);
         rel_err = std::fabs((cur_res - prev_res) / cur_res);
 #ifdef PRINT_INTERMEDIATE_STEPS
-        cout << '\t' << "Abs err : rel err " << abs_err << " : " << rel_err << endl;
+        std::cout << '\t' << "Abs err : rel err " << abs_err << " : " << rel_err << std::endl;
 #endif
         to_continue = (abs_err > config.abs_err);
         to_continue = to_continue && (rel_err > config.rel_err);

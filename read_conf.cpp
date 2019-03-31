@@ -14,7 +14,7 @@ configuration_t read_conf(std::istream &cf) {
     std::string temp;
     try {
         cf >> res.rel_err;
-        getline(cf, temp); // Відкидаємо комент.
+        getline(cf, temp);
         cf >> res.abs_err;
         getline(cf, temp);
         cf >> res.x1;

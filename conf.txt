@@ -1,5 +1,5 @@
-0.000001   # relative error
-0.000005    # absolute error
+0.0001  # relative error
+0.00005 # absolute error
 -50     # x1
 50      # x2
 -50     # x1
